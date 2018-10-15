@@ -99,4 +99,5 @@ public class TestRegexCardValidator {
     private void printResult(CardValidationResult result) {
         System.out.println(result.isValid() + " : " + (result.isValid() ? result.getCardType().getIssuerName() : "") + " : " + result.getMessage());
     }
+    
 }

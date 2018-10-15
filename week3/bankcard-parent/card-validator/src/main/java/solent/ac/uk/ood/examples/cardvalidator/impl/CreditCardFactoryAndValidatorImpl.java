@@ -6,10 +6,15 @@
 package solent.ac.uk.ood.examples.cardvalidator.impl;
 
 import solent.ac.uk.ood.examples.cardcheck.CalculateLunnDigit;
+import solent.ac.uk.ood.examples.cardcheck.CardValidationResult;
+import solent.ac.uk.ood.examples.cardcheck.RegexCardValidator;
 import solent.ac.uk.ood.examples.cardvalidator.model.CardOrganisation;
 import solent.ac.uk.ood.examples.cardvalidator.model.CreditCard;
 import solent.ac.uk.ood.examples.cardvalidator.model.CreditCardFactoryAndValidator;
 import solent.ac.uk.ood.examples.cardvalidator.model.CvvAlgorythimStrategy;
+import solent.ac.uk.ood.examples.cardcheck.CalculateLunnDigit;
+import static org.junit.Assert.*;
+import solent.ac.uk.ood.examples.cardcheck.CardCompany;
 
 /**
  *
@@ -65,13 +70,28 @@ public class CreditCardFactoryAndValidatorImpl implements CreditCardFactoryAndVa
     @Override
     public CardOrganisation getCardOrganisation(CreditCard card) {
         //TODO
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override
     public boolean cardNumberLunnIsValid(CreditCard card) {
         //TODO
-        throw new UnsupportedOperationException("Not supported yet.");
+  
+        String pan =  card.getCardnumber(); // correct mastercard 5500005555555559
+
+        String check = CalculateLunnDigit.calculateCheckDigit(pan);
+        
+        String ccNumber = pan+check;
+        
+        CardValidationResult result = RegexCardValidator.isValid(ccNumber);
+        
+        System.out.println("pan:"+pan
+                + " ccNumber with check digit:"+ ccNumber);
+        
+        assertTrue(result.isValid());
+        
+        return true;
+        
     }
 
 }
